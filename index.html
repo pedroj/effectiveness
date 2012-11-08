@@ -36,109 +36,129 @@
 <p>Effectiveness landscapes are the two-dimensional representation of the possible combinations of the quantity and the quality of dualistic services (seed dispersal, pollination) and with elevational contours representing isoclines of effectiveness. These representations can be 2D bivariate plots of multiplicative effects of any of the seed dispersal (SDE) or pollination (PE) effectiveness components. For example, SDE can be quantified as the number of seeds dispersed by a dispersal agent multiplied by the probability that a dispersed seed produces a new adult: SDE = Quantity · Quality. Quantity and quality in turn are each determined by two subcomponents. Quantity is (1) the number of visits a dispersal agent makes multiplied by (2) the number of seeds dispersed per visit, while quality is (1) the probability that a dispersed seed sur- vives handling by the dispersal agent in a viable condition (quality of treatment in the mouth and gut) multiplied by (2) the probability that a viable dispersed seed will survive, germinate, and produce a new adult (quality of deposition).
 Thus the SDE landscape can be any 2D plot of Qty x Qlty, with isoclines representing equal values of overall SDE. Or we may plot no. visits x no. fruits/visit, with isoclines representing the overall Qty component. Isoclines just plot the values of the product of two variables. The code is the following:</p>
 
-<div class="highlight"><pre>    <span class="c1">#-----------------------------------------------------------------------------  </span>
-    <span class="c1"># Quantitative component. From New Phytologist MS code. Nov 2009.  </span>
-    <span class="c1">#-----------------------------------------------------------------------------  </span>
-    <span class="c1"># Quant. component as product of two variables: visits, flowers/vis  </span>
-    <span class="c1"># We use our experimental data, from field work  </span>
-    qnc<span class="o">&lt;-</span>PE.5000<span class="p">$</span>visit<span class="o">*</span>PE.5000<span class="p">$</span>nflow  
-    tapply<span class="p">(</span>qnc<span class="p">,</span>Pollinator<span class="p">,</span>mean<span class="p">)</span> <span class="c1"># Below we just copy the summary data  </span>
-    Gallotia.qnc<span class="o">&lt;-</span><span class="m">0.027771945</span>  
-    GAdult.qnc<span class="o">&lt;-</span><span class="m">0.007938871</span>  
-    GJuv.qnc<span class="o">&lt;-</span><span class="m">0.019856327</span>  
-    Phy.qnc<span class="o">&lt;-</span><span class="m">0.345377267</span>  
+<div class="highlight"><pre><span class="nl">#--------------------------------------------------------------------------</span> 
+<span class="nl">#</span> <span class="nv">PLot</span> <span class="nv">s</span> <span class="nv">of</span> <span class="nv">Effectiveness</span> <span class="nv">Landscapes.</span> 
+<span class="nl">#</span> <span class="gu">See:</span>
+<span class="nl">#</span> <span class="nv">Schupp,</span> <span class="nv">E.W.,</span> <span class="nv">Jordano,</span> <span class="nv">P.</span> <span class="nv">&amp;</span> <span class="nv">Gomez,</span> <span class="nv">J.M.</span> <span class="gs">(</span><span class="m">2010</span><span class="gs">)</span><span class="nv">.</span> <span class="nv">Seed</span> <span class="nv">dispersal</span> 
+<span class="nl">#</span> <span class="nv">effectiveness</span> <span class="gu">revisited:</span> <span class="nv">a</span> <span class="nv">conceptual</span> <span class="nv">review.</span> <span class="nv">New</span> <span class="nv">Phytol,</span> <span class="mf">188,</span> <span class="m">333</span><span class="nv">–353.</span>
+<span class="nl">#</span> <span class="nv">From</span> <span class="nv">New</span> <span class="nv">Phytologist</span> <span class="nv">MS</span> <span class="nv">code.</span> <span class="nv">Nov</span> <span class="mf">2009.</span> <span class="nv">Pedro</span> <span class="nv">Jordano.</span> <span class="nv">Sevilla.</span>
+<span class="nl">#--------------------------------------------------------------------------</span>
+<span class="nl">#</span> <span class="nv">Quant.</span> <span class="nv">component</span> <span class="nv">as</span> <span class="nv">product</span> <span class="nv">of</span> <span class="nv">two</span> <span class="gu">variables:</span> <span class="nv">visits,</span> <span class="nv">flowers</span><span class="na">/vis</span>
+<span class="nl">#</span> <span class="nv">We</span> <span class="nb">use</span> <span class="nv">our</span> <span class="nv">experimental</span> <span class="nv">data,</span> <span class="nv">from</span> <span class="nv">field</span> <span class="nv">work</span>
+<span class="nv">qnc&lt;-PE.5000$visit*PE.5000$nflow</span>
+<span class="nv">tapply</span><span class="gs">(</span>qnc,Pollinator,mean<span class="gs">)</span> <span class="nl">#</span> <span class="nv">Below</span> <span class="nv">we</span> <span class="nv">just</span> <span class="nf">copy</span> <span class="nv">the</span> <span class="nv">summary</span> <span class="nv">data</span>
+<span class="nv">Gallotia.qnc&lt;-0.027771945</span>
+<span class="nv">GAdult.qnc&lt;-0.007938871</span>
+<span class="nv">GJuv.qnc&lt;-0.019856327</span>
+<span class="nv">Phy.qnc&lt;-0.345377267</span>
 
-    <span class="c1"># Qual. components as product of two variables: % pollen removal and   </span>
-    <span class="c1"># % viable seed set  </span>
-    qlc<span class="o">&lt;-</span><span class="p">(</span>PE.5000<span class="p">$</span>pprem<span class="o">/</span><span class="m">100</span><span class="p">)</span><span class="o">*</span><span class="p">(</span>PE.5000<span class="p">$</span>pvseed<span class="o">/</span><span class="m">100</span><span class="p">)</span>  
-    tapply<span class="p">(</span>qlc<span class="p">,</span>Pollinator<span class="p">,</span>mean<span class="p">)</span>  
-    Gallotia.qlc<span class="o">&lt;-</span><span class="m">0.07018447</span>  
-    GAdult.qlc<span class="o">&lt;-</span><span class="m">0.15816336</span>  
-    GJuv.qlc<span class="o">&lt;-</span><span class="m">0.01618308</span>  
-    Phy.qlc<span class="o">&lt;-</span><span class="m">0.10957918</span>  
-     <span class="c1"># PE estimate  </span>
-    pe<span class="o">&lt;-</span>qnc<span class="o">*</span>qlc  
-    tapply<span class="p">(</span>pe<span class="p">,</span>Pollinator<span class="p">,</span>mean<span class="p">)</span>  
-    Gallotia.pe<span class="o">&lt;-</span><span class="m">0.0019468677</span>  
-    GAdult.pe<span class="o">&lt;-</span><span class="m">0.0012539678</span>  
-    GJuv.pe<span class="o">&lt;-</span><span class="m">0.0003211828</span>  
-    Phy.pe<span class="o">&lt;-</span><span class="m">0.0378527826</span>  
+<span class="nl">#</span> <span class="nv">Qual.</span> <span class="nv">components</span> <span class="nv">as</span> <span class="nv">product</span> <span class="nv">of</span> <span class="nv">two</span> <span class="gu">variables:</span> <span class="nd">%</span> <span class="nv">pollen</span> <span class="nv">removal</span> <span class="o">and</span> 
+<span class="nl">#</span> <span class="nd">%</span> <span class="nv">viable</span> <span class="nv">seed</span> <span class="nb">set</span>
+<span class="nv">qlc&lt;-</span><span class="gs">(</span><span class="nv">PE.5000$pprem</span><span class="na">/100</span><span class="gs">)</span><span class="o">*</span><span class="gs">(</span><span class="nv">PE.5000$pvseed</span><span class="na">/100</span><span class="gs">)</span>
+<span class="nv">tapply</span><span class="gs">(</span>qlc,Pollinator,mean<span class="gs">)</span>
+<span class="nv">Gallotia.qlc&lt;-0.07018447</span>
+<span class="nv">GAdult.qlc&lt;-0.15816336</span>
+<span class="nv">GJuv.qlc&lt;-0.01618308</span>
+<span class="nv">Phy.qlc&lt;-0.10957918</span>
+ <span class="nl">#</span> <span class="nv">PE</span> <span class="nv">estimate</span>
+<span class="nv">pe&lt;-qnc*qlc</span>
+<span class="nv">tapply</span><span class="gs">(</span>pe,Pollinator,mean<span class="gs">)</span>
+<span class="nv">Gallotia.pe&lt;-0.0019468677</span>
+<span class="nv">GAdult.pe&lt;-0.0012539678</span>
+<span class="nv">GJuv.pe&lt;-0.0003211828</span>
+<span class="nv">Phy.pe&lt;-0.0378527826</span>
 
-    <span class="c1"># Estimate the SD for qnc and qlc per pollinator type:  </span>
-    tapply<span class="p">(</span>qnc<span class="p">,</span>Pollinator<span class="p">,</span>sd<span class="p">)</span>  
-    Gallotia.qnc.sd<span class="o">&lt;-</span><span class="m">0.010355862</span>  
-    GAdult.qnc.sd<span class="o">&lt;-</span><span class="m">0.003269856</span>  
-    GJuv.qnc.sd<span class="o">&lt;-</span><span class="m">0.008188137</span>  
-    Phy.qnc.sd<span class="o">&lt;-</span><span class="m">0.043216248</span>  
-    tapply<span class="p">(</span>qlc<span class="p">,</span>Pollinator<span class="p">,</span>sd<span class="p">)</span>  
-    Gallotia.qlc.sd<span class="o">&lt;-</span><span class="m">0.02211062</span>  
-    GAdult.qlc.sd<span class="o">&lt;-</span><span class="m">0.05102973</span>  
-    GJuv.qlc.sd<span class="o">&lt;-</span><span class="m">0.01005910</span>  
-    Phy.qlc.sd<span class="o">&lt;-</span><span class="m">0.02559917</span>  
+<span class="nl">#</span> <span class="nv">Estimate</span> <span class="nv">the</span> <span class="nv">SD</span> <span class="kn">for</span> <span class="nv">qnc</span> <span class="o">and</span> <span class="nv">qlc</span> <span class="nv">per</span> <span class="nv">pollinator</span> <span class="gu">type:</span>
+<span class="nv">tapply</span><span class="gs">(</span>qnc,Pollinator,sd<span class="gs">)</span>
+<span class="nv">Gallotia.qnc.sd&lt;-0.010355862</span>
+<span class="nv">GAdult.qnc.sd&lt;-0.003269856</span>
+<span class="nv">GJuv.qnc.sd&lt;-0.008188137</span>
+<span class="nv">Phy.qnc.sd&lt;-0.043216248</span>
+<span class="nv">tapply</span><span class="gs">(</span>qlc,Pollinator,sd<span class="gs">)</span>
+<span class="nv">Gallotia.qlc.sd&lt;-0.02211062</span>
+<span class="nv">GAdult.qlc.sd&lt;-0.05102973</span>
+<span class="nv">GJuv.qlc.sd&lt;-0.01005910</span>
+<span class="nv">Phy.qlc.sd&lt;-0.02559917</span>
 
-    <span class="c1"># NOT-Log scaled axes. I keep plotting the different species  </span>
-    <span class="c1"># This is the actual plot of the PE (or SDE) landscape.  </span>
-    plot<span class="p">(</span>PE.5000<span class="p">$</span>qnc<span class="p">,</span>PE.5000<span class="p">$</span>qlc<span class="p">,</span>type<span class="o">=</span><span class="s">"n"</span><span class="p">,</span>xlab<span class="o">=</span><span class="s">"Quantitative component"</span><span class="p">,</span>  
-         ylab<span class="o">=</span><span class="s">"Qualitative component"</span><span class="p">,</span> main<span class="o">=</span><span class="s">"Pollinator effectiveness"</span><span class="p">,</span>  
-         xlim<span class="o">=</span>c<span class="p">(</span><span class="m">-0.001</span><span class="p">,</span><span class="m">1</span><span class="p">),</span>ylim<span class="o">=</span>c<span class="p">(</span><span class="m">-0.001</span><span class="p">,</span><span class="m">0.3</span><span class="p">),</span>  
-         cex.lab<span class="o">=</span><span class="m">1.3</span><span class="p">,</span>cex.main<span class="o">=</span><span class="m">1.5</span><span class="p">)</span>  
+<span class="nl">#</span> <span class="nv">NOT-Log</span> <span class="nv">scaled</span> <span class="nv">axes.</span> <span class="nv">I</span> <span class="nv">keep</span> <span class="nv">plotting</span> <span class="nv">the</span> <span class="nv">different</span> <span class="nv">species</span>
+<span class="nl">#</span> <span class="nv">This</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">actual</span> <span class="nv">plot</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">PE</span> <span class="gs">(</span><span class="o">or</span> SDE<span class="gs">)</span> <span class="nv">landscape.</span>
+<span class="nv">plot</span><span class="gs">(</span><span class="nv">PE.5000$qnc,PE.5000$qlc,type=</span><span class="s">"n"</span><span class="nv">,xlab=</span><span class="s">"Quantitative component"</span><span class="nv">,</span>
+     <span class="nv">ylab=</span><span class="s">"Qualitative component"</span><span class="nv">,</span> <span class="nv">main=</span><span class="s">"Pollinator effectiveness"</span><span class="nv">,</span>
+     <span class="nv">xlim=c</span><span class="gs">(</span><span class="mf">-0.001</span>,1<span class="gs">)</span><span class="nv">,ylim=c</span><span class="gs">(</span><span class="mf">-0.001</span>,0.3<span class="gs">)</span><span class="nv">,</span>
+     cex.lab=1.3,cex.main=1.5<span class="gs">)</span>
 
-    <span class="c1"># Now we ad the data points  </span>
-    <span class="c1">#Gallotia galloti pooled:  </span>
-    points<span class="p">(</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="p">,</span>pch<span class="o">=</span>c<span class="p">(</span><span class="m">17</span><span class="p">),</span>cex<span class="o">=</span><span class="m">2</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="p">,</span>Gallotia.qnc<span class="o">-</span>Gallotia.qnc.sd<span class="p">,</span>Gallotia.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="p">,</span>Gallotia.qnc<span class="o">+</span>Gallotia.qnc.sd<span class="p">,</span>Gallotia.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="p">,</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="o">-</span>Gallotia.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="p">,</span>Gallotia.qnc<span class="p">,</span>Gallotia.qlc<span class="o">+</span>Gallotia.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    <span class="c1">#---  </span>
-    <span class="c1">#Gallotia adults:  </span>
-    points<span class="p">(</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="p">,</span>pch<span class="o">=</span>c<span class="p">(</span><span class="m">2</span><span class="p">),</span>cex<span class="o">=</span><span class="m">2</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="p">,</span>GAdult.qnc<span class="o">-</span>GAdult.qnc.sd<span class="p">,</span>GAdult.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="p">,</span>GAdult.qnc<span class="o">+</span>GAdult.qnc.sd<span class="p">,</span>GAdult.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="p">,</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="o">-</span>GAdult.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="p">,</span>GAdult.qnc<span class="p">,</span>GAdult.qlc<span class="o">+</span>GAdult.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    <span class="c1">#---  </span>
-    <span class="c1">#Gallotia juveniles:  </span>
-    points<span class="p">(</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="p">,</span>pch<span class="o">=</span>c<span class="p">(</span><span class="m">6</span><span class="p">),</span>cex<span class="o">=</span><span class="m">2</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="p">,</span>GJuv.qnc<span class="o">-</span>GJuv.qnc.sd<span class="p">,</span>GJuv.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="p">,</span>GJuv.qnc<span class="o">+</span>GJuv.qnc.sd<span class="p">,</span>GJuv.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="p">,</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="o">-</span>GJuv.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="p">,</span>GJuv.qnc<span class="p">,</span>GJuv.qlc<span class="o">+</span>GJuv.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    <span class="c1">#---  </span>
-    <span class="c1">#Phylloscopus canariensis:  </span>
-    points<span class="p">(</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="p">,</span>pch<span class="o">=</span>c<span class="p">(</span><span class="m">15</span><span class="p">),</span>cex<span class="o">=</span><span class="m">2</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="p">,</span>Phy.qnc<span class="o">-</span>Phy.qnc.sd<span class="p">,</span>Phy.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="p">,</span>Phy.qnc<span class="o">+</span>Phy.qnc.sd<span class="p">,</span>Phy.qlc<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="p">,</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="o">-</span>Phy.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    arrows<span class="p">(</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="p">,</span>Phy.qnc<span class="p">,</span>Phy.qlc<span class="o">+</span>Phy.qlc.sd<span class="p">,</span>length<span class="o">=</span><span class="m">.05</span><span class="p">,</span>angle<span class="o">=</span><span class="m">90</span><span class="p">,</span>code<span class="o">=</span><span class="m">3</span><span class="p">)</span>  
-    <span class="c1">#--------------------------------------------------------------------------  </span>
-    <span class="c1"># Legend added  </span>
-    legend<span class="p">(</span><span class="s">"topright"</span><span class="p">,</span> inset<span class="o">=</span><span class="m">.02</span><span class="p">,</span> title<span class="o">=</span><span class="s">"Pollinator species"</span><span class="p">,</span>  
-           c<span class="p">(</span><span class="s">"Gallotia galloti"</span><span class="p">,</span><span class="s">"G. galloti adults"</span><span class="p">,</span>  
-             <span class="s">"G. galloti Juveniles"</span><span class="p">,</span><span class="s">"Phylloscopus canariensis"</span><span class="p">),</span>   
-              pch<span class="o">=</span>c<span class="p">(</span><span class="m">17</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">15</span><span class="p">),</span>ncol<span class="o">=</span><span class="m">1</span><span class="p">)</span>  
-    <span class="c1">#----------------  </span>
-    <span class="c1"># This is the code chunk for plotting the isolines. Needs tweaking of the   </span>
-    <span class="c1"># numeric values for each particular case. We are working to improve this…  </span>
+<span class="nl">#</span> <span class="nv">Now</span> <span class="nv">we</span> <span class="nv">ad</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">points</span>
+<span class="nl">#Gallotia</span> <span class="nv">galloti</span> <span class="gu">pooled:</span>
+<span class="nv">points</span><span class="gs">(</span><span class="nv">Gallotia.qnc,Gallotia.qlc,pch=c</span><span class="gs">(</span><span class="m">17</span><span class="gs">)</span>,cex=2<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Gallotia.qnc,Gallotia.qlc,Gallotia.qnc-Gallotia.qnc.sd,Gallotia.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Gallotia.qnc,Gallotia.qlc,Gallotia.qnc+Gallotia.qnc.sd,Gallotia.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Gallotia.qnc,Gallotia.qlc,Gallotia.qnc,Gallotia.qlc-Gallotia.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Gallotia.qnc,Gallotia.qlc,Gallotia.qnc,Gallotia.qlc+Gallotia.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nl">#---</span>
+<span class="nl">#Gallotia</span> <span class="gu">adults:</span>
+<span class="nv">points</span><span class="gs">(</span><span class="nv">GAdult.qnc,GAdult.qlc,pch=c</span><span class="gs">(</span><span class="m">2</span><span class="gs">)</span>,cex=2<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GAdult.qnc,GAdult.qlc,GAdult.qnc-GAdult.qnc.sd,GAdult.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GAdult.qnc,GAdult.qlc,GAdult.qnc+GAdult.qnc.sd,GAdult.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GAdult.qnc,GAdult.qlc,GAdult.qnc,GAdult.qlc-GAdult.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GAdult.qnc,GAdult.qlc,GAdult.qnc,GAdult.qlc+GAdult.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nl">#---</span>
+<span class="nl">#Gallotia</span> <span class="gu">juveniles:</span>
+<span class="nv">points</span><span class="gs">(</span><span class="nv">GJuv.qnc,GJuv.qlc,pch=c</span><span class="gs">(</span><span class="m">6</span><span class="gs">)</span>,cex=2<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GJuv.qnc,GJuv.qlc,GJuv.qnc-GJuv.qnc.sd,GJuv.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GJuv.qnc,GJuv.qlc,GJuv.qnc+GJuv.qnc.sd,GJuv.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GJuv.qnc,GJuv.qlc,GJuv.qnc,GJuv.qlc-GJuv.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">GJuv.qnc,GJuv.qlc,GJuv.qnc,GJuv.qlc+GJuv.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nl">#---</span>
+<span class="nl">#Phylloscopus</span> <span class="gu">canariensis:</span>
+<span class="nv">points</span><span class="gs">(</span><span class="nv">Phy.qnc,Phy.qlc,pch=c</span><span class="gs">(</span><span class="m">15</span><span class="gs">)</span>,cex=2<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Phy.qnc,Phy.qlc,Phy.qnc-Phy.qnc.sd,Phy.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Phy.qnc,Phy.qlc,Phy.qnc+Phy.qnc.sd,Phy.qlc,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Phy.qnc,Phy.qlc,Phy.qnc,Phy.qlc-Phy.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nv">arrows</span><span class="gs">(</span><span class="nv">Phy.qnc,Phy.qlc,Phy.qnc,Phy.qlc+Phy.qlc.sd,</span>
+       length=.05,angle=90,code=3<span class="gs">)</span>
+<span class="nl">#--------------------------------------------------------------------------</span>
+<span class="nl">#</span> <span class="nv">Legend</span> <span class="nv">added</span>
+<span class="nv">legend</span><span class="gs">(</span><span class="s">"topright"</span><span class="nv">,</span> <span class="nv">inset=.02,</span> <span class="nv">title=</span><span class="s">"Pollinator species"</span><span class="nv">,</span>
+       <span class="nv">c</span><span class="gs">(</span><span class="s">"Gallotia galloti"</span><span class="nv">,</span><span class="s">"G. galloti adults"</span><span class="nv">,</span>
+         <span class="s">"G. galloti Juveniles"</span><span class="nv">,</span><span class="s">"Phylloscopus canariensis"</span><span class="gs">)</span><span class="nv">,</span> 
+          <span class="nv">pch=c</span><span class="gs">(</span><span class="mf">17,2</span>,6,15<span class="gs">)</span>,ncol=1<span class="gs">)</span>
+<span class="nl">#----------------</span>
+<span class="nl">#</span> <span class="nv">This</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">code</span> <span class="nv">chunk</span> <span class="kn">for</span> <span class="nv">plotting</span> <span class="nv">the</span> <span class="nv">isolines.</span> <span class="nv">Needs</span> <span class="nv">tweaking</span> <span class="nv">of</span> <span class="nv">the</span> 
+<span class="nl">#</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="kn">for</span> <span class="nv">each</span> <span class="nv">particular</span> <span class="nv">case.</span> <span class="nv">We</span> <span class="nv">are</span> <span class="nv">working</span> <span class="nf">to</span> <span class="nv">improve</span> <span class="nv">this…</span>
 
-    <span class="c1"># Isolines of QC  </span>
-    <span class="c1"># Vary the numeric values in the lines statements to adjust the location of  </span>
-    <span class="c1"># the isolines  </span>
-    qnc1<span class="o">&lt;-</span>seq<span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1.5</span><span class="p">,</span>length.out<span class="o">=</span><span class="m">100</span><span class="p">)</span>  
-    qlc1<span class="o">&lt;-</span>seq<span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0.081</span><span class="p">,</span>length.out<span class="o">=</span><span class="m">100</span><span class="p">)</span>  
-            lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.007</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-            lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.00335</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-            lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.00167</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-            lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.00034</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-    <span class="c1"># This adds the labels for the isolines  </span>
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.161</span><span class="p">,</span> <span class="s">"PE= 0.10"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.078</span><span class="p">,</span> <span class="s">"PE= 0.05"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.04</span><span class="p">,</span> <span class="s">"PE= 0.025"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.0099</span><span class="p">,</span> <span class="s">"PE= 0.005"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    <span class="c1">#-----------------------------------------------------------------------------  </span>
-    detach<span class="p">(</span>PE.5000<span class="p">)</span>  
-    rm<span class="p">(</span>list<span class="o">=</span>ls<span class="p">())</span>  
-    <span class="c1">#-----------------------------------------------------------------------------  </span>
+<span class="nl">#</span> <span class="nv">Isolines</span> <span class="nv">of</span> <span class="nv">QC</span>
+<span class="nl">#</span> <span class="nv">Vary</span> <span class="nv">the</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="nb">in</span> <span class="nv">the</span> <span class="nv">lines</span> <span class="nv">statements</span> <span class="nf">to</span> <span class="nv">adjust</span> <span class="nv">the</span> <span class="nv">location</span> <span class="nv">of</span>
+<span class="nl">#</span> <span class="nv">the</span> <span class="nv">isolines</span>
+<span class="nv">qnc1&lt;-seq</span><span class="gs">(</span><span class="mf">0,1</span>.5,length.out=100<span class="gs">)</span>
+<span class="nv">qlc1&lt;-seq</span><span class="gs">(</span><span class="mf">0,0</span>.081,length.out=100<span class="gs">)</span>
+        <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.007</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>
+        <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.00335</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>
+        <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.00167</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>
+        <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.00034</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>
+<span class="nl">#</span> <span class="nv">This</span> <span class="nv">adds</span> <span class="nv">the</span> <span class="nv">labels</span> <span class="kn">for</span> <span class="nv">the</span> <span class="nv">isolines</span>
+<span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.161,</span> <span class="s">"PE= 0.10"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>
+<span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.078,</span> <span class="s">"PE= 0.05"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>
+<span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.04,</span> <span class="s">"PE= 0.025"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>
+<span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.0099,</span> <span class="s">"PE= 0.005"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>
+<span class="nl">#--------------------------------------------------------------------------</span>
+<span class="nv">detach</span><span class="gs">(</span>PE.5000<span class="gs">)</span>
+<span class="nv">rm</span><span class="gs">(</span><span class="nv">list=ls</span><span class="gs">())</span>
+<span class="nl">#--------------------------------------------------------------------------</span>
 </pre></div>
 
 <p>To do the SDE or PE plot, let's use an example:
@@ -149,38 +169,38 @@ We use the actual values obtained for the pollination of an endemia Canary Islan
 <p>We add the +- 1SE values with function arrow
 We ad the isolines with this code chunk:</p>
 
-<div class="highlight"><pre>    <span class="c1">#----------------------------------------------------------------  </span>
-    <span class="c1"># Isolines of QC  </span>
-    <span class="c1"># Vary the numeric values in the lines statements to adjust the  </span>
-    <span class="c1"># location of the isolines  </span>
-    <span class="c1"># qnc1 y qlc1 son dos variables creadas para dibujar las lineas  </span>
-    <span class="c1"># con las funciones lines.   </span>
-    qnc1<span class="o">&lt;-</span>seq<span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1.5</span><span class="p">,</span>length.out<span class="o">=</span><span class="m">100</span><span class="p">)</span>  
-    qlc1<span class="o">&lt;-</span>seq<span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0.081</span><span class="p">,</span>length.out<span class="o">=</span><span class="m">100</span><span class="p">)</span>  
-    <span class="c1">#  </span>
-    <span class="c1"># Here is where you adjust the numeric values (0.007, etc)  </span>
-    <span class="c1"># of the numerators, divided by qlc1 so that they fit and  </span>
-    <span class="c1"># correspond to your data.  </span>
-    <span class="c1"># It's a matter of adjusting the values until you get the  </span>
-    <span class="c1"># isolines that best fit your specific data and get better  </span>
-        <span class="c1"># distributed in the plot.  </span>
-           lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.007</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-           lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.00335</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-           lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.00167</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-           lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.00034</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>  
-    <span class="c1"># This adds the labels for the isolines  </span>
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.161</span><span class="p">,</span> <span class="s">"PE= 0.10"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.078</span><span class="p">,</span> <span class="s">"PE= 0.05"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.04</span><span class="p">,</span> <span class="s">"PE= 0.025"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    text<span class="p">(</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.0099</span><span class="p">,</span> <span class="s">"PE= 0.005"</span><span class="p">,</span> cex<span class="o">=</span><span class="m">0.8</span><span class="p">,</span> pos<span class="o">=</span><span class="m">4</span><span class="p">,</span> col<span class="o">=</span><span class="s">"red"</span><span class="p">)</span>  
-    <span class="c1">#----------------------------------------------------------------  </span>
+<div class="highlight"><pre>    <span class="nl">#----------------------------------------------------------------</span>  
+    <span class="nl">#</span> <span class="nv">Isolines</span> <span class="nv">of</span> <span class="nv">QC</span>  
+    <span class="nl">#</span> <span class="nv">Vary</span> <span class="nv">the</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="nb">in</span> <span class="nv">the</span> <span class="nv">lines</span> <span class="nv">statements</span> <span class="nf">to</span> <span class="nv">adjust</span> <span class="nv">the</span>  
+    <span class="nl">#</span> <span class="nv">location</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">isolines</span>  
+    <span class="nl">#</span> <span class="nv">qnc1</span> <span class="nv">y</span> <span class="nv">qlc1</span> <span class="nv">son</span> <span class="nv">dos</span> <span class="nv">variables</span> <span class="nv">creadas</span> <span class="nv">para</span> <span class="nv">dibujar</span> <span class="nv">las</span> <span class="nv">lineas</span>  
+    <span class="nl">#</span> <span class="nv">con</span> <span class="nv">las</span> <span class="nv">funciones</span> <span class="nv">lines.</span>   
+    <span class="nv">qnc1&lt;-seq</span><span class="gs">(</span><span class="mf">0,1</span>.5,length.out=100<span class="gs">)</span>  
+    <span class="nv">qlc1&lt;-seq</span><span class="gs">(</span><span class="mf">0,0</span>.081,length.out=100<span class="gs">)</span>  
+    <span class="nl">#</span>  
+    <span class="nl">#</span> <span class="nv">Here</span> <span class="nv">is</span> <span class="nv">where</span> <span class="nv">you</span> <span class="nv">adjust</span> <span class="nv">the</span> <span class="nv">numeric</span> <span class="nv">values</span> <span class="gs">(</span><span class="mf">0.007</span><span class="nv">,</span> etc<span class="gs">)</span>  
+    <span class="nl">#</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">numerators,</span> <span class="nv">divided</span> <span class="nv">by</span> <span class="nv">qlc1</span> <span class="nv">so</span> <span class="nv">that</span> <span class="nv">they</span> <span class="nv">fit</span> <span class="o">and</span>  
+    <span class="nl">#</span> <span class="nv">correspond</span> <span class="nf">to</span> <span class="nv">your</span> <span class="nv">data.</span>  
+    <span class="nl">#</span> <span class="nv">It's</span> <span class="nv">a</span> <span class="nv">matter</span> <span class="nv">of</span> <span class="nv">adjusting</span> <span class="nv">the</span> <span class="nv">values</span> <span class="nb">until</span> <span class="nv">you</span> <span class="nb">get</span> <span class="nv">the</span>  
+    <span class="nl">#</span> <span class="nv">isolines</span> <span class="nv">that</span> <span class="nv">best</span> <span class="nv">fit</span> <span class="nv">your</span> <span class="nv">specific</span> <span class="nv">data</span> <span class="o">and</span> <span class="nb">get</span> <span class="nv">better</span>  
+        <span class="nl">#</span> <span class="nv">distributed</span> <span class="nb">in</span> <span class="nv">the</span> <span class="nv">plot.</span>  
+           <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.007</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>  
+           <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.00335</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>  
+           <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.00167</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>  
+           <span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.00034</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>  
+    <span class="nl">#</span> <span class="nv">This</span> <span class="nv">adds</span> <span class="nv">the</span> <span class="nv">labels</span> <span class="kn">for</span> <span class="nv">the</span> <span class="nv">isolines</span>  
+    <span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.161,</span> <span class="s">"PE= 0.10"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>  
+    <span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.078,</span> <span class="s">"PE= 0.05"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>  
+    <span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.04,</span> <span class="s">"PE= 0.025"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>  
+    <span class="nv">text</span><span class="gs">(</span><span class="mf">0.8</span><span class="nv">,0.0099,</span> <span class="s">"PE= 0.005"</span><span class="nv">,</span> <span class="nv">cex=0.8,</span> <span class="nv">pos=4,</span> <span class="nv">col=</span><span class="s">"red"</span><span class="gs">)</span>  
+    <span class="nl">#----------------------------------------------------------------</span>  
 </pre></div>
 
 <p>We use this to overlay the isolines. The actual numbers to use need working. Just play around with your values until you get adequate isolines. </p>
 
 <p>The numeric values used in the lines statements need to be adjusted for each study case, as they depend on the actual dimensions and values of the measured components that are plotted. We need to play with different values of the numerators in:</p>
 
-<div class="highlight"><pre>lines<span class="p">(</span>qnc1<span class="p">,</span><span class="m">0.007</span><span class="o">/</span>qlc1<span class="p">,</span>col<span class="o">=</span><span class="s">"gray"</span><span class="p">)</span>
+<div class="highlight"><pre><span class="nv">lines</span><span class="gs">(</span><span class="nv">qnc1,0.007</span><span class="na">/qlc1,col=</span><span class="s">"gray"</span><span class="gs">)</span>
 </pre></div>
 
 <p>For example, (({0.007/qlc1})) gives 0.05, etc. I.e., you need to find the value (0.007) in our example) that, divided by your values of qlc always results in 0.05, then 0.10, 0.20 etc.. The values you use to plot their isolines.</p>
