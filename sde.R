@@ -3,11 +3,11 @@
 # See:
 # Schupp, E.W., Jordano, P. & Gomez, J.M. (2010). Seed dispersal 
 # effectiveness revisited: a conceptual review. New Phytol, 188, 333–353.
-# From New Phytologist MS code. Nov 2009. Pedro Jordano. Sevilla.
+# From New Phytologist MS code. Nov 2009. Pedro Jordano. Sevilla. 
 #--------------------------------------------------------------------------
 # Quant. component as product of two variables: visits, flowers/vis
 # We use our experimental data, from field work
-qnc<-PE.5000$visit*PE.5000$nflow
+qnc<-PE.5000$visit*PE.5000$nflow 
 tapply(qnc,Pollinator,mean) # Below we just copy the summary data
 Gallotia.qnc<-0.027771945
 GAdult.qnc<-0.007938871
