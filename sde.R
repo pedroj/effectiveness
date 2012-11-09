@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------- 
-# PLot s of Effectiveness Landscapes. 
+# Plots of Effectiveness Landscapes. 
 # See:
 # Schupp, E.W., Jordano, P. & Gomez, J.M. (2010). Seed dispersal 
 # effectiveness revisited: a conceptual review. New Phytol, 188, 333–353.
