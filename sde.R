@@ -57,7 +57,7 @@ plot(PE.5000$qnc,PE.5000$qlc,type="n",xlab="Quantitative component",
      xlim=c(-0.001,1),ylim=c(-0.001,0.3),
      cex.lab=1.3,cex.main=1.5)
 
-# Now we ad the data points
+# Now we add the data points
 #Gallotia galloti pooled:
 points(Gallotia.qnc,Gallotia.qlc,pch=c(17),cex=2)
 arrows(Gallotia.qnc,Gallotia.qlc,Gallotia.qnc-Gallotia.qnc.sd,Gallotia.qlc,
