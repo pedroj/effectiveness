@@ -110,21 +110,23 @@ legend("topright", inset=.02, title="Pollinator species",
 #----------------
 # This is the code chunk for plotting the isolines. Needs tweaking of the 
 # numeric values for each particular case. We are working to improve this…
-
+#----------------
 # Isolines of QC
-# Vary the numeric values in the lines statements to adjust the location of
+# Vary the numeric values in the lines statements to adjust the location of 
 # the isolines
 qnc1<-seq(0,1.5,length.out=100)
 qlc1<-seq(0,0.081,length.out=100)
-        lines(qnc1,0.007/qlc1,col="gray")
-        lines(qnc1,0.00335/qlc1,col="gray")
-        lines(qnc1,0.00167/qlc1,col="gray")
-        lines(qnc1,0.00034/qlc1,col="gray")
+        lines(qnc1,0.07/qnc1,col="gray")
+        lines(qnc1,0.0335/qnc1,col="gray")
+        lines(qnc1,0.0167/qnc1,col="gray")
+        lines(qnc1,0.0034/qnc1,col="gray")
+        lines(qnc1,0.0007/qnc1,col="gray")
 # This adds the labels for the isolines
-text(0.8,0.161, "PE= 0.10", cex=0.8, pos=4, col="red")
-text(0.8,0.078, "PE= 0.05", cex=0.8, pos=4, col="red")
-text(0.8,0.04, "PE= 0.025", cex=0.8, pos=4, col="red")
-text(0.8,0.0099, "PE= 0.005", cex=0.8, pos=4, col="red")
+text(0.8,0.08, "PE= 0.07", cex=0.8, pos=4, col="red")
+text(0.8,0.036, "PE= 0.03", cex=0.8, pos=4, col="red")
+text(0.8,0.018, "PE= 0.01", cex=0.8, pos=4, col="red")
+text(0.8,0.007, "PE= 0.005", cex=0.8, pos=4, col="red")
+text(0.8,0.00, "PE< 0.001", cex=0.8, pos=4, col="red")
 #--------------------------------------------------------------------------
 detach(PE.5000)
 rm(list=ls())
