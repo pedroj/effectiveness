@@ -1,21 +1,46 @@
-# Code for automatically plotting isolines of effectiveness
-# landscapes.
-# Based on code for automatic calculation of isolines 
-# by Bernardo Santos. UNESP, Rio Claro, Brazil. 3 Dec 2013.
+# ----------------------------------------------------------------
+# autoisolines: Code for automatically plotting isolines of
+# effectiveness landscapes.
+# Based on code for plotting effectiveness landscapes by Pedro 
+# Jordano and code for automatic calculation of isolines 
+# by Bernardo Santos.
+# 3 December 2013. UNESP, Rio Claro, Brazil. Pedro Jordano.
+# ----------------------------------------------------------------
+## First version 12 Jan 2009. Revised 3 December 2013
+# ----------------------------------------------------------------
+# DESCRIPTION:
+# The script plots effectiveness landscapes as described in
+# Schupp, E. W., Jordano, P. and Gómez, J.M. 2010. Seed dispersal
+# effectiveness revisited: a conceptual review. New Phytologist
+# 188: 333-353.
+# ----------------------------------------------------------------
+# Notes to do
+# - Adding a function for the isolines code.
+# - Implementing an option for setting the number of desired 
+# isolines.
+# ----------------------------------------------------------------
+# NOT-Log scaled axes. Data example for Archontophoenix 
+# cunninghamiani.
+#
+# Input data here.
+sde <- read.table("sde.txt", header=T, sep="\t", dec=".", na.strings="NA")
 
-# NOT-Log scaled axes. Data for Archontophoenix cunninghamiani.
-sde <- read.table("/media/windows/Users/ber/Documents/Documentos_ber/Atividades 2013/Doutorado/Disciplinas/Frugivoria_Mauro/R codes/data/sde.txt", header=T, sep="\t", dec=".", na.strings="NA")
-
-plot(sde$vish,sde$frutot,xlab="Visit rate",
+plot(sde$vish,sde$frutot,    # Empty plot
+	 xlab="Visit rate",
      ylab="No. fruits/visit (total handled)", 
-     main="Quantitative component",ylim=c(0,max(sde$frutot)), xlim=c(0,max(sde$vish)),type="n")
-#, col = terrain.colors(4:8)[qc$plant]
-#text(vis, frv, plant, cex=0.6, pos=4, col="red")
-points(sde$vish,sde$frutot,
-       pch=c(1,2,4,6,7)[sde$fam])
-#legend("topleft", title="Family",
-#       c("Mimidae","Psittacidae","Thraupidae","Turdidae","Tyrannidae"), pch=c(1,2,4,6,7),horiz=F,ncol=1)
+     main="Quantitative component",
+	 ylim=c(0,max(sde$frutot)), 
+	 xlim=c(0,max(sde$vish)),type="n")
 
+points(sde$vish,sde$frutot,  # Adds the points
+       pch=c(1,2,4,6,7)[sde$fam])
+#
+# Code for legend. REVISE
+#legend("topleft", title="Family",
+# c("Mimidae","Psittacidae","Thraupidae","Turdidae","Tyrannidae"), pch=c(1,2,4,6,7),horiz=F,ncol=1)
+# 
+# This plots the isolines (code prototype by Bernardo Santos.)
+#
 nlines <- 10 # number of isolines wanted
 alfa <- max(sde$frutot)/max(sde$vish) # slope of a straight line linking (left,bottom) to (right,above) corners of the graphic
 xval <- seq(0, max(sde$vish), length.out=(nlines+1))[2:(nlines+1)] # sequence of (nlines) regular spaced x values for the isoclines
