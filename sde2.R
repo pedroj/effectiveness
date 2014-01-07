@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------
 # NOT-Log scaled axes. Data example for Prunus mahaleb.
 #
-require(calibrate)
+> 
 # Input data here.
 sde <- read.table("./effectiveness/data.txt", header=T, sep="\t", dec=".", na.strings="NA")
 
