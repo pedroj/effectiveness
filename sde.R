@@ -61,9 +61,6 @@ for(i in 1:nlines)
         col="red", cex= 0.75)
 }
 
-
-
-
 #
 # Code for legend. Ok.
 #legend("topright", title="Functional group",

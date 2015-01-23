@@ -19,7 +19,7 @@
 # - Adding a function for the isolines code.
 # - Implementing an option for setting the number of desired 
 # isolines.
-# Implementing ggplot2 graph. OK!
+# Implementing ggplot2 graph. OK! Done.
 # - Checking with other datasets.
 #---------------------------------------------------------------------------
 # NOT-Log scaled axes. Data example for Prunus mahaleb.
@@ -64,16 +64,22 @@ devtools::source_gist("https://gist.github.com/b843fbafa3af8f408972")
 #
 p1<- ggplot(sde, aes(x=visits, y=eff_per_vis)) + 
     geom_point(shape=sde$group, size=5) +
-    geom_text(size=4, label=sde$animal,hjust=0.5, vjust=1.9)
+    geom_text(size=4, label=sde$animal,hjust=0.5, vjust=1.9) +
+    mytheme_bw()
 
 # Adding isolines
+    labelx<- 0.8*max(sde$visits)
 for(i in 2:nlines){ 
+    labely<- isoc[i]/(0.8*max(sde$eff_per_vis))
     p1= p1 + geom_line(aes(x, y), 
                        data= data.frame(x= pp$vis1, y= pp[,i]), 
-                       col="blue", size = 0.25) + 
+                       col="blue", size = 0.25, alpha= 0.6) + 
         ylim(0, max(sde$eff_per_vis)) +
         xlab("Visit rate (/10h)") + 
         ylab("Effectiveness/visit (No. fruits handled/vis)") +
-        mytheme_bw()
-} 
+        geom_text(data= NULL, x= labelx, y= labely, 
+                    label = paste("QC = ", round(isoc[i], digits=1)),
+                    size = 4, colour = "red")
+                    }
 print(p1) 
+#---------------------------------------------------------------------------
