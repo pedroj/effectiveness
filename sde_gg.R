@@ -27,17 +27,8 @@
 sde <- read.table("data.txt", header=T, sep="\t", dec=".", na.strings="NA")
 
 # Variables in dataset:
-# dataset    plant	animal	visits	prop_visits	eff_per_vis	eff_total	
+# dataset	plant	animal	visits	prop_visits	eff_per_vis	eff_total	
 # prop_disp_service	frugivore_species
-plot(sde$visits,sde$eff_per_vis,    # Empty plot
-    xlab="Visit rate (vis/10h)",
-    ylab="No. fruits/visit (total handled)", 
-    main="Quantitative component",
-    ylim=c(0,max(sde$eff_per_vis)), 
-    xlim=c(0,max(sde$visits)),type="n")
-
-points(sde$visits,sde$eff_per_vis,  # Adds the points
-    pch=c(17,17,2,2,2,2,2,6,6,15,15,17,5,5,5,5,5,5,5,5)[sde$group])
 
 # 
 # This plots the isolines (code prototype by Bernardo Santos.)
@@ -49,26 +40,40 @@ alfa <- max(sde$eff_per_vis)/max(sde$visits)
 
 # sequence of (nlines) regular spaced x values for the isoclines
 xval <- seq(0, max(sde$visits), 
-    length.out=(nlines+1))[2:(nlines+1)] 
+            length.out=(nlines+1))[2:(nlines+1)] 
 isoc <- (xval*xval*alfa) # values of the isoclines
-
 vis1<-seq(0,max(sde$visits),length.out=1000)
+
+pp<- as.data.frame(vis1)
 for(i in 1:nlines)
 {
-    lines(vis1, isoc[i]/vis1)
-    text(0.6*max(sde$visits), isoc[i]/(0.6*max(sde$visits)), 
-        paste("QC = ", round(isoc[i], digits=1)), 
-        col="red", cex= 0.75)
+    pp<- cbind(pp, isoc[i]/vis1)
 }
 
+# The plot
+#p1<- ggplot(sde, aes(visits, eff_per_vis)) + 
+p1<- ggplot(sde, aes(visits, eff_per_vis)) +
+            geom_point(shape=sde$group, size=5)+ 
+            geom_text(label=sde$animal, size=4, hjust=0.5, vjust=2) +
+            ylim(0, max(sde$eff_per_vis)) +
+            xlab("Visit rate (vis/10h)") + 
+            ylab("No. fruits/visit (total handled)")
+p1
+for(i in 2:nlines){
+p1<-    p1 +   geom_line(data=pp, aes(vis1, pp[,i]), col="blue")
+}
+print(p1)
 
 
-
-#
+#---------------------------------------------------------------------------
 # Code for legend. Ok.
-#legend("topright", title="Functional group",
-#    c("Large birds","Thrushes","Warblers","Small muscicapids","Others"),
-#    pch=c(17,15,6,2,5), horiz=F, ncol=1)
+# legend("topright", title="Functional group",
+#     c("Large birds","Thrushes","Warblers","Small muscicapids","Others"),
+#     pch=c(17,15,6,2,5), horiz=F, ncol=1)
+# text(0.6*max(sde$visits), isoc[i]/(0.6*max(sde$visits)), 
+#     paste("QC = ", round(isoc[i], digits=1)), 
+#     col="red", cex= 0.75)
+
 #---------------------------------------------------------------------------
 
 
