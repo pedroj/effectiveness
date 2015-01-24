@@ -1,0 +1,53 @@
+# Function to plot effectiveness landscapes.
+effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10){
+    # q1 is the component to plot on X axis
+    # q2 is the component to plot on Y axis
+    # group is a group label
+    # label is a taxa label
+    require(devtools)
+    require(ggplot2)
+#
+    d<-as.data.frame(cbind(q1, q2, group, label))
+    names(d)
+    nlines <- nlines+1 # number of isolines wanted
+    # slope of a straight line linking (left,bottom) to (right,above) 
+    # corners of the graphic
+    alfa <- max(d$q2)/max(d$q1)
+    # sequence of (nlines) regular spaced x values for the isoclines
+    xval <- seq(0, max(d$q1), 
+        length.out=(nlines+1))[2:(nlines+1)] 
+    isoc <- (xval*xval*alfa) # values of the isoclines
+    vis1<-seq(0, max(d$q1), length.out= 1000)
+#
+    pp<- as.data.frame(vis1) # Build dataset for within loop plot.
+    for(i in 1:nlines)
+        {
+            pp<- cbind(pp, isoc[i]/vis1)
+        }    
+# Main plot ----------------------------------------------------------------
+    # mytheme_bw.R
+    devtools::source_gist("https://gist.github.com/b843fbafa3af8f408972")
+#
+    p1<- ggplot(d, aes(x=q1, y=q2)) + 
+            geom_point(shape= group, size=5) +
+            geom_text(size= 4, label= label, hjust= 0.5, vjust= 1.9) +
+            mytheme_bw()
+    
+    # Adding isolines
+    labelx<- 0.8*max(q1)
+    for(i in 2:nlines){ 
+        labely<- isoc[i]/(0.8*max(q2))
+        p1= p1 + geom_line(aes(x, y), 
+            data= data.frame(x= pp$vis1, y= pp[,i]), 
+            col="blue", size = 0.25, alpha= 0.6) + 
+            ylim(0, max(q2)) +
+            xlab("Visit rate (/10h)") + 
+            ylab("Effectiveness/visit (No. fruits handled/vis)") +
+            geom_text(data= NULL, x= labelx, y= labely, 
+                label = paste("QC = ", round(isoc[i], digits=1)),
+                size = 4, colour = "red")
+    }
+    print(p1) 
+}
+#---------------------------------------------------------------------------
+
