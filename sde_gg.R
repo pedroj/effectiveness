@@ -79,7 +79,7 @@ for(i in 1:nlines+1){
         ylim(0, max(sde$eff_per_vis)) +
         xlab("Visit rate (/10h)") + 
         ylab("Effectiveness/visit (No. fruits handled/vis)") +
-        geom_text(data= NULL, x= labelx, y= labely, 
+        geom_text(aes(), data= NULL, x= labelx, y= labely, 
                     label = paste("QC = ", round(isoc[i], digits=1)),
                     size = 4, colour = "red")
                     }
