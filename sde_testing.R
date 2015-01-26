@@ -120,9 +120,7 @@ for(i in 1:nlines+1){
 }
 p1 + annotate("text", x= labelx, y= labely,
         label=paste("QC= ", round(isoc,1)), 
-        size=4, colour="red", hjust=0)
-
-print(p1) 
+        size=4, colour="red", hjust=0) 
 #---------------------------------------------------------------------------
 
 

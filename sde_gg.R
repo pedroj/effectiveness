@@ -36,9 +36,11 @@ sde <- read.table("data.txt", header=T, sep="\t", dec=".", na.strings="NA")
 # title="Functional group",
 #    c("Large birds","Thrushes","Warblers","Small muscicapids","Others")
 # 
+#---------------------------------------------------------------------------
+# Code with ggplot2
 # This plots the isolines (code prototype by Bernardo Santos.)
 #
-nlines <- 10 # number of isolines wanted
+nlines <- 15 # number of isolines wanted
 # slope of a straight line linking (left,bottom) to (right,above) 
 # corners of the graphic
 alfa <- max(sde$eff_per_vis)/max(sde$visits)
@@ -69,19 +71,23 @@ p1<- ggplot(sde, aes(x=visits, y=eff_per_vis)) +
     mytheme_bw()
 
 # Adding isolines
-    labelx<- 0.8*max(sde$visits)
+labelx<- rep(0.8*max(sde$visits), nlines)
+labely<- as.vector(t(pp[800,1:nlines+1]))
+
 for(i in 1:nlines+1){ 
     #labely<- isoc[i]/(0.8*max(sde$eff_per_vis)
-    labely<- pp[,i][800]
+    #    labely<- pp[,i][800]
     p1= p1 + geom_line(aes(x, y), 
-                       data= data.frame(x= pp$vis1, y= pp[,i]), 
-                       col="blue", size = 0.25, alpha= 0.6) + 
+        data= data.frame(x= pp$vis1, y= pp[,i]), 
+        col="blue", size = 0.25, alpha= 0.6) + 
         ylim(0, max(sde$eff_per_vis)) +
         xlab("Visit rate (/10h)") + 
-        ylab("Effectiveness/visit (No. fruits handled/vis)") +
-        geom_text(aes(), data= NULL, x= labelx, y= labely, 
-                    label = paste("QC = ", round(isoc[i], digits=1)),
-                    size = 4, colour = "red")
-                    }
-print(p1) 
+        ylab("Effectiveness/visit (No. fruits handled/vis)")  # +
+    #        geom_text(aes(), data= NULL, x= labelx, y= labely, 
+    #            label = paste("QC = ", round(isoc[i], digits=1)),
+    #            size = 4, colour = "red")
+}
+p1 + annotate("text", x= labelx, y= labely,
+    label=paste("QC= ", round(isoc,1)), 
+    size=4, colour="red", hjust=0) 
 #---------------------------------------------------------------------------
