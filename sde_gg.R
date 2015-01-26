@@ -16,11 +16,12 @@
 # 188: 333-353.
 #---------------------------------------------------------------------------
 # Notes to do
-# - Adding a function for the isolines code.
+# - Adding a function for the isolines code. OK.
 # - Implementing an option for setting the number of desired 
-# isolines.
+# isolines. OK.
 # Implementing ggplot2 graph. OK! Done.
 # - Checking with other datasets.
+# Add isolines labels with annotate rather than geom_text. Pixelated.
 #---------------------------------------------------------------------------
 # NOT-Log scaled axes. Data example for Prunus mahaleb.
 #
