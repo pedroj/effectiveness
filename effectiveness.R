@@ -36,7 +36,7 @@ effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10){
     # Adding isolines
     labelx<- 0.8*max(q1)
     for(i in 2:nlines){ 
-        labely<- isoc[i]/(0.8*max(q2))
+        labely<- pp[,i][800]
         p1= p1 + geom_line(aes(x, y), 
             data= data.frame(x= pp$vis1, y= pp[,i]), 
             col="blue", size = 0.25, alpha= 0.6) + 

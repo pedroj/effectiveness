@@ -70,7 +70,7 @@ p1<- ggplot(sde, aes(x=visits, y=eff_per_vis)) +
 # Adding isolines
     labelx<- 0.8*max(sde$visits)
 for(i in 2:nlines){ 
-    labely<- isoc[i]/(0.8*max(sde$eff_per_vis))
+    labely<- pp[,i][800]
     p1= p1 + geom_line(aes(x, y), 
                        data= data.frame(x= pp$vis1, y= pp[,i]), 
                        col="blue", size = 0.25, alpha= 0.6) + 
