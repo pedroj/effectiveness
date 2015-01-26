@@ -43,6 +43,8 @@ effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10){
             ylim(0, max(q2)) +
             xlab("Visit rate (/10h)") + 
             ylab("Effectiveness/visit (No. fruits handled/vis)") +
+#             annotate("text", label = paste("QC = ", round(isoc[i], digits=1)), 
+#                      x = labelx, y = labely, size = 4, colour = "red")
             geom_text(data= NULL, x= labelx, y= labely, 
                 label = paste("QC = ", round(isoc[i], digits=1)),
                 size = 4, colour = "red")
