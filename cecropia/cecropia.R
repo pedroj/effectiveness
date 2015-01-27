@@ -4,7 +4,6 @@
 # Observaciones de arboles focales en grupos de 2 personas.
 #
 setwd("/Users/pedroj/Documents/Cursos/Curso Frugivoria/Proyectos/Curso 2012/Focal_Cecropia")
-
 #-----------------------------------------------------------------------------
 # We may eventually need these libraries.
 library(network)
