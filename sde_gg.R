@@ -20,8 +20,8 @@
 # - Implementing an option for setting the number of desired 
 # isolines. OK.
 # Implementing ggplot2 graph. OK! Done.
-# - Checking with other datasets.
-# Add isolines labels with annotate rather than geom_text. Pixelated.
+# - Checking with other datasets. OK
+# Add isolines labels with annotate rather than geom_text. Pixelated. OK
 #---------------------------------------------------------------------------
 # NOT-Log scaled axes. Data example for Prunus mahaleb.
 #
