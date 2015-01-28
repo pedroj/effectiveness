@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="FRUBASE : This is the page for the FRUBASE database, a huge dataset of fleshy fruit traits compiled from bibliographic references and my own work. Data are provided for more than 1000 plant species from all around the world." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+	<style type="text/css">
+	body, td {
+	   font-family: sans-serif;
+	   background-color: white;
+	   font-size: 14px;
+	   margin: 8px;
+	}
+
+	tt, code, pre {
+	   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+	}
+
+	h1 { 
+	   font-size:2.2em; 
+	}
+
+	h2 { 
+	   font-size:1.8em; 
+	}
+
+	h3 { 
+	   font-size:1.4em; 
+	}
+
+	h4 { 
+	   font-size:1.0em; 
+	}
+
+	h5 { 
+	   font-size:0.9em; 
+	}
+
+	h6 { 
+	   font-size:0.8em; 
+	}
+
+	a:visited {
+	   color: rgb(50%, 0%, 50%);
+	}
+
+	pre {	
+	   margin-top: 0;
+	   max-width: 95%;
+	   border: 1px solid #ccc;
+	   white-space: pre-wrap;
+	}
+
+	pre code {
+	   display: block; padding: 0.5em;
+	}
+
+	code.r, code.cpp {
+	   background-color: #F8F8F8;
+	}
+
+	table, td, th {
+	  border: none;
+	}
+
+	blockquote {
+	   color:#666666;
+	   margin:0;
+	   padding-left: 1em;
+	   border-left: 0.5em #EEE solid;
+	}
+
+	hr {
+	   height: 0px;
+	   border-bottom: none;
+	   border-top-width: thin;
+	   border-top-style: dotted;
+	   border-top-color: #999999;
+	}
+
+	@media print {
+	   * { 
+	      background: transparent !important; 
+	      color: black !important; 
+	      filter:none !important; 
+	      -ms-filter: none !important; 
+	   }
+
+	   body { 
+	      font-size:12pt; 
+	      max-width:100%; 
+	   }
+       
+	   a, a:visited { 
+	      text-decoration: underline; 
+	   }
+
+	   hr { 
+	      visibility: hidden;
+	      page-break-before: always;
+	   }
+
+	   pre, blockquote { 
+	      padding-right: 1em; 
+	      page-break-inside: avoid; 
+	   }
+
+	   tr, img { 
+	      page-break-inside: avoid; 
+	   }
+
+	   img { 
+	      max-width: 100% !important; 
+	   }
+
+	   @page :left { 
+	      margin: 15mm 20mm 15mm 10mm; 
+	   }
+     
+	   @page :right { 
+	      margin: 15mm 10mm 15mm 20mm; 
+	   }
+
+	   p, h2, h3 { 
+	      orphans: 3; widows: 3; 
+	   }
+
+	   h2, h3 { 
+	      page-break-after: avoid; 
+	   }
+	}
+
+	</style>
+
+	<!-- Styles for R syntax highlighter -->
+	<style type="text/css">
+	   pre .operator,
+	   pre .paren {
+	     color: rgb(104, 118, 135)
+	   }
+
+	   pre .literal {
+	     color: rgb(88, 72, 246)
+	   }
+
+	   pre .number {
+	     color: rgb(0, 0, 205);
+	   }
+
+	   pre .comment {
+	     color: rgb(76, 136, 107);
+	   }
+
+	   pre .keyword {
+	     color: rgb(0, 0, 255);
+	   }
+
+	   pre .identifier {
+	     color: rgb(0, 0, 0);
+	   }
+
+	   pre .string {
+	     color: rgb(3, 106, 7);
+	   }
+	</style>
+
+	<!-- R syntax highlighter -->
+<!-- R syntax highlighter -->
+<link rel="stylesheet" href="stylesheets/styles/xcode.css">
+<script src="javascripts/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-------------------------->
+	</script>
+
+<!------------------------------------------------------------------------------------------------>
+    <title>Effectiveness</title>
+  </head>
+
+  <body>
+
+<!-- HEADER -->
+   <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/pedroj/interaccum">View on GitHub</a>
+
+          <h1 id="project_title">Effectiveness</h1>
+          <h2 id="project_tagline">Plots of effectiveness landscapes in mutualisms (seed dispersal, pollination)</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/pedroj/interaccum/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/pedroj/interaccum/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+<!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<h3>Plotting effectiveness landscapes.</h3>
+
+<p>Effectiveness landscapes are the two-dimensional representation of the possible combinations of the quantity and the quality of dualistic services (seed dispersal, pollination) and with elevational contours representing isoclines of effectiveness. These representations can be 2D bivariate plots of multiplicative effects of any of the seed dispersal (SDE) or pollination (PE) effectiveness components. For example, SDE can be quantified as the number of seeds dispersed by a dispersal agent multiplied by the probability that a dispersed seed produces a new adult: SDE = Quantity · Quality. Quantity and quality in turn are each determined by two subcomponents. Quantity is (1) the number of visits a dispersal agent makes multiplied by (2) the number of seeds dispersed per visit, while quality is (1) the probability that a dispersed seed survives handling by the dispersal agent in a viable condition (quality of treatment in the mouth and gut) multiplied by (2) the probability that a viable dispersed seed will survive, germinate, and produce a new adult (quality of deposition).
+Thus the SDE landscape can be any 2D plot of Qty x Qlty, with isoclines representing equal values of overall SDE. Or we may plot no. visits x no. fruits/visit, with isoclines representing the overall Qty component. Isoclines just plot the values of the product of two variables. The code is the following:</p>
+
+<p>Below is the code for the `effectiveness` function. You can source the code directly with:</p>
+
+<pre><code class="r">
+require(downloader)
+#
+# Sourcing the effectiveness function code from GitHub.
+link = "https://raw.githubusercontent.com/pedroj/effectiveness/master/effectiveness.R"
+file = "effectiveness.R"
+if(!file.exists(file)) download(link, file, mode = "wb")
+source(file)
+</code></pre>
+
+<p>This is the function code.</p>
+
+<pre><code class="r">
+#---------------------------------------------------------------------------
+# effectiveness
+# Function to plot effectiveness landscapes.
+#---------------------------------------------------------------------------
+# autoisolines: Code for automatically plotting isolines of
+# effectiveness landscapes.
+# Based on code for plotting effectiveness landscapes by Pedro 
+# Jordano and code for automatic calculation of isolines 
+# by Bernardo Santos.
+# 3 December 2013. UNESP, Rio Claro, Brazil. Pedro Jordano.
+#---------------------------------------------------------------------------
+## First version 12 Jan 2009. Revised 3 December 2013.
+## New revision 23 January 2015.
+#---------------------------------------------------------------------------
+# Options:
+#   q1, the "quantitative component", to plot on the X axis. 
+#   q2, the "qualitative component", to plot on the Y axis.
+#   group=NA, a grouping variable to set point shapes (e.g., family).
+#   label= NA, a label for the individual points (e.g., spcies acronym).
+#   nlines=10, specify the number of isolines.
+#   myxlab= "QtComp", optional label for axis X.
+#   myylab= "QltComp", optional label for axis Y.
+# 
+# Example:
+# effectiveness(sde$visits, sde$eff_per_vis, sde$group, sde$animal, 10, 
+#               myxlab= "No. visits/10h", 
+#               myylab="Effectiveness/vis (No. fruits handled)")
+# effectiveness(cgla$totvis, cgla$totbic, cgla$fam, cgla$code, 15, 
+#               myxlab= "Total no. visits", 
+#               myylab="No. fruits pecked/vis")
+#---------------------------------------------------------------------------
+#
+effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10,
+                        myxlab= "QtComp", myylab= "QltComp")    {
+    # q1 is the component to plot on X axis
+    # q2 is the component to plot on Y axis
+    # group is a group label
+    # label is a taxa label
+    require(devtools)
+    require(ggplot2)
+    #
+    d<-as.data.frame(cbind(q1, q2, group, label))
+    names(d)
+    nlines <- nlines+1 # number of isolines wanted
+    # slope of a straight line linking (left,bottom) to (right,above) 
+    # corners of the graphic
+    alfa <- max(d$q2)/max(d$q1)
+    # sequence of (nlines) regular spaced x values for the isoclines
+    xval <- seq(0, max(d$q1), 
+        length.out=(nlines+1))[2:(nlines+1)] 
+    isoc <- (xval*xval*alfa) # values of the isoclines
+    vis1<-seq(0, max(d$q1), length.out= 1000)
+    #
+    pp<- as.data.frame(vis1) # Build dataset for within loop plot.
+    for(i in 1:nlines)
+    {
+        pp<- cbind(pp, isoc[i]/vis1)
+    }    
+    # Main plot ------------------------------------------------------------
+    # mytheme_bw.R
+    devtools::source_gist("https://gist.github.com/b843fbafa3af8f408972")
+    #
+    p1<- ggplot(d, aes(x=q1, y=q2)) + 
+        geom_point(shape= group, size=5) +
+        geom_text(size= 4, label= label, hjust= 0.5, vjust= 1.9) +
+        mytheme_bw()
+    # Adding isolines ------------------------------------------------------
+    labelx<- rep(0.8*max(q1), nlines)
+    labely<- as.vector(t(pp[800,1:nlines+1]))
+    
+    for(i in 1:nlines+1){ 
+         p1= p1 + geom_line(aes(x, y), 
+            data= data.frame(x= pp$vis1, y= pp[,i]), 
+            col="blue", size = 0.25, alpha= 0.6) + 
+            ylim(0, max(q2)) +
+            xlab(paste(myxlab)) + 
+            ylab(paste(myylab))
+    }
+    p1 + annotate("text", x= labelx, y= labely,
+        label=paste("QC= ", round(isoc,1)), 
+        size=4, colour="red", hjust=0) 
+}
+#---------------------------------------------------------------------------
+
+</code></pre>
+
+
+<h2>Example</h2>
+
+<p>To do the SDE or PE plot, let's use an example:
+We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i>. We were interested in plotting the locations of the different specis of frugivores visiting the tree for fruit food and dispersing its seeds, and visualize them on the PE landscape. </p>
+
+<p>We use this to overlay the isolines. The actual numbers to use need working. Just play around with your values until you get adequate isolines. </p>
+
+<p>The numeric values used in the lines statements need to be adjusted for each study case, as they depend on the actual dimensions and values of the measured components that are plotted. We need to play with different values of the numerators in:</p>
+
+<pre><code class="r">
+#
+# PJ example. Based on a dataset of Prunus mahaleb frugivores.
+# Get the data from my GitHub repository.
+link = "https://raw.githubusercontent.com/pedroj/effectiveness/master/data.txt"
+file = "data.txt"
+if(!file.exists(file)) download(link, file, mode = "wb")
+M <- read.table(file, sep = "\t", dec = ".", 
+                header = TRUE, na.strings="NA")
+
+# Run the function.
+effectiveness(M$visits, M$eff_per_vis, M$group, M$animal, 10, 
+                myxlab= "No. visits/10h", 
+                myylab="Effectiveness/vis (No. fruits handled)")
+</code></pre>
+
+<p>The resulting plot is:</p>
+<img src="images/effcetiveness_prunus.png">
+
+<h2>Suggested references:</h2>
+
+<ul>
+<li>Schupp, E. (1993). Quantity, quality and the effectiveness of seed dispersal by animals. Vegetatio, 108, 15–29.</li>
+<li>Schupp, E.W., Jordano, P. &amp; Gomez, J.M. (2010). Seed dispersal effectiveness revisited: a conceptual review. New Phytol, 188, 333–353.</li>
+<li>Jordano, P. &amp; Schupp, E. (2000). Seed disperser effectiveness: The quantity component and patterns of seed rain for Prunus mahaleb. Ecological Monographs, 70, 591–615.</li>
+</ul>
+
+</section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
+
+
