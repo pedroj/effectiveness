@@ -208,9 +208,9 @@ Thus the SDE landscape can be any 2D plot of Qty x Qlty, with isoclines represen
 <p>Below is the code for the `effectiveness` function. You can source the code directly with:</p>
 
 <pre><code class="r">
-require(downloader)
 #
 # Sourcing the effectiveness function code from GitHub.
+require(downloader)
 link = "https://raw.githubusercontent.com/pedroj/effectiveness/master/effectiveness.R"
 file = "effectiveness.R"
 if(!file.exists(file)) download(link, file, mode = "wb")
@@ -279,7 +279,7 @@ effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10,
         pp<- cbind(pp, isoc[i]/vis1)
     }    
     # Main plot -------------------------------------------------------
-    # mytheme_bw.R
+    # mytheme_bw.R - Getting a custom theme for the plot.
     devtools::source_gist("https://gist.github.com/b843fbafa3af8f408972")
     #
     p1<- ggplot(d, aes(x=q1, y=q2)) + 
