@@ -73,21 +73,11 @@ link = &quot;https://raw.githubusercontent.com/pedroj/effectiveness/master/effec
 file = &quot;effectiveness.R&quot;
 if(!file.exists(file)) download(link, file, mode = &quot;wb&quot;)
 source(file)</code></pre>
-<pre class="r"><code>#---------------------------------------------------------------------------
-# effectiveness
-# Function to plot effectiveness landscapes.
-#---------------------------------------------------------------------------
-# autoisolines: Code for automatically plotting isolines of
-# effectiveness landscapes.
-# Based on code for plotting effectiveness landscapes by Pedro 
-# Jordano and code for automatic calculation of isolines 
-# by Bernardo Santos.
-# 3 December 2013. UNESP, Rio Claro, Brazil. Pedro Jordano.
-#---------------------------------------------------------------------------
-## First version 12 Jan 2009. Revised 3 December 2013.
-## New revision 23 January 2015.
-#---------------------------------------------------------------------------
-# Options:
+<div id="options-to-plot-effectiveness-landscapes" class="section level4">
+<h4>Options to plot effectiveness landscapes</h4>
+<p>Code for automatically plotting isolines of effectiveness landscapes. Based on code for plotting effectiveness landscapes by Pedro Jordano and code prototype for automatic calculation of isolines by Bernardo Santos. 3 December 2013. UNESP, Rio Claro, Brazil.</p>
+<p><em>Options</em>:</p>
+<pre class="r"><code># Options for the effectiveness function.
 #   q1, the &quot;quantitative component&quot;, to plot on the X axis. 
 #   q2, the &quot;qualitative component&quot;, to plot on the Y axis.
 #   group=NA, a grouping variable to set point shapes (e.g., family).
@@ -102,63 +92,12 @@ source(file)</code></pre>
 #               myylab=&quot;Effectiveness/vis (No. fruits handled)&quot;)
 # effectiveness(cgla$totvis, cgla$totbic, cgla$fam, cgla$code, 15, 
 #               myxlab= &quot;Total no. visits&quot;, 
-#               myylab=&quot;No. fruits pecked/vis&quot;)
-#---------------------------------------------------------------------------
-#
-effectiveness&lt;- function(q1, q2, group=NA, label= NA, nlines=10,
-                        myxlab= &quot;QtComp&quot;, myylab= &quot;QltComp&quot;)    {
-    # q1 is the component to plot on X axis
-    # q2 is the component to plot on Y axis
-    # group is a group label
-    # label is a taxa label
-    require(devtools)
-    require(ggplot2)
-    #
-    d&lt;-as.data.frame(cbind(q1, q2, group, label))
-    names(d)
-    nlines &lt;- nlines+1 # number of isolines wanted
-    # slope of a straight line linking (left,bottom) to (right,above) 
-    # corners of the graphic
-    alfa &lt;- max(d$q2)/max(d$q1)
-    # sequence of (nlines) regular spaced x values for the isoclines
-    xval &lt;- seq(0, max(d$q1), 
-        length.out=(nlines+1))[2:(nlines+1)] 
-    isoc &lt;- (xval*xval*alfa) # values of the isoclines
-    vis1&lt;-seq(0, max(d$q1), length.out= 1000)
-    #
-    pp&lt;- as.data.frame(vis1) # Build dataset for within loop plot.
-    for(i in 1:nlines)
-    {
-        pp&lt;- cbind(pp, isoc[i]/vis1)
-    }    
-    # Main plot ------------------------------------------------------------
-    # mytheme_bw.R
-    devtools::source_gist(&quot;https://gist.github.com/b843fbafa3af8f408972&quot;)
-    #
-    p1&lt;- ggplot(d, aes(x=q1, y=q2)) + 
-        geom_point(shape= group, size=5) +
-        geom_text(size= 4, label= label, hjust= 0.5, vjust= 1.9) +
-        mytheme_bw()
-    # Adding isolines ------------------------------------------------------
-    labelx&lt;- rep(0.8*max(q1), nlines)
-    labely&lt;- as.vector(t(pp[800,1:nlines+1]))
-    
-    for(i in 1:nlines+1){ 
-         p1= p1 + geom_line(aes(x, y), 
-            data= data.frame(x= pp$vis1, y= pp[,i]), 
-            col=&quot;blue&quot;, size = 0.25, alpha= 0.6) + 
-            ylim(0, max(q2)) +
-            xlab(paste(myxlab)) + 
-            ylab(paste(myylab))
-    }
-    p1 + annotate(&quot;text&quot;, x= labelx, y= labely,
-        label=paste(&quot;QC= &quot;, round(isoc,1)), 
-        size=4, colour=&quot;red&quot;, hjust=0) 
-}
-#---------------------------------------------------------------------------</code></pre>
+#               myylab=&quot;No. fruits pecked/vis&quot;)</code></pre>
+</div>
 </div>
 <div id="example" class="section level3">
 <h3>Example</h3>
+<p>This exampe code plot the effectiveness landscape (quntitative component, <code>QC</code>) for the <em>Cecropia glaziouvi</em> avian frugivore assemblage studied in Intervales Park, SP, Brazil.</p>
 <pre class="r"><code>require(downloader)
 #
 # PJ example. Based on a dataset of Prunus mahaleb frugivores.
@@ -202,7 +141,7 @@ effectiveness(M$visits, M$eff_per_vis, M$group, M$animal, 10,
 ## [16] labeling_0.3        lpSolve_5.6.10      magrittr_1.5       
 ## [19] mapproj_1.2-2       maps_2.3-9          MASS_7.3-35        
 ## [22] mgcv_1.8-3          minqa_1.2.4         munsell_0.4.2      
-## [25] nlme_3.1-119        nloptr_1.0.4        parallel_3.1.2     
+## [25] nlme_3.1-118        nloptr_1.0.4        parallel_3.1.2     
 ## [28] plyr_1.8.1          png_0.1-7           proto_0.3-10       
 ## [31] RCurl_1.95-4.5      reshape2_1.4.1      RgoogleMaps_1.2.0.6
 ## [34] rjson_0.2.15        RJSONIO_1.3-0       rmarkdown_0.3.10   
