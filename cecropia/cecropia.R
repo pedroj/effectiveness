@@ -1,5 +1,5 @@
 ##############################################################################
-# Cecropia glaziouvii. Intervales. Practica de focal.
+# Cecropia glaziovii. Intervales. Practica de focal.
 # Pedro Jordano. 25 Mar 2012.
 # Observaciones de arboles focales en grupos de 2 personas.
 #
