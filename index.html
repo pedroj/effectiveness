@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="FRUBASE : This is the page for the FRUBASE database, a huge dataset of fleshy fruit traits compiled from bibliographic references and my own work. Data are provided for more than 1000 plant species from all around the world." />
+    <meta name="description" content="Effectiveness: This is the page for the code to estimate effectivenss landscapes of plant-animal interactions" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -188,11 +188,11 @@
           <a id="forkme_banner" href="https://github.com/pedroj/effectiveness">View on GitHub</a>
 
           <h1 id="project_title">Effectiveness</h1>
-          <h2 id="project_tagline">Plots of effectiveness landscapes in mutualisms (seed dispersal, pollination)</h2>
+          <h2 id="project_tagline">An R package for plots of effectiveness landscapes in mutualisms (seed dispersal, pollination)</h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/pedroj/effectiveness/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/pedroj/effectiveness/tarball/master">Download this project as a tar.gz file</a>
+              <a class="zip_download_link" href="https://github.com/pedroj/effectiveness_pckg/zipball/master">Download this project as a .zip file</a> 
+              <a class="tar_download_link" href="https://github.com/pedroj/effectiveness_pckg/tarball/master">Download this project as a tar.gz file</a>
             </section>
         </header>
     </div>
@@ -205,19 +205,20 @@
 <p>Effectiveness landscapes are the two-dimensional representation of the possible combinations of the quantity and the quality of dualistic services (seed dispersal, pollination) and with elevational contours representing isoclines of effectiveness. These representations can be 2D bivariate plots of multiplicative effects of any of the seed dispersal (SDE) or pollination (PE) effectiveness components. For example, SDE can be quantified as the number of seeds dispersed by a dispersal agent multiplied by the probability that a dispersed seed produces a new adult: SDE = Quantity · Quality. Quantity and quality in turn are each determined by two subcomponents. Quantity is (1) the number of visits a dispersal agent makes multiplied by (2) the number of seeds dispersed per visit, while quality is (1) the probability that a dispersed seed survives handling by the dispersal agent in a viable condition (quality of treatment in the mouth and gut) multiplied by (2) the probability that a viable dispersed seed will survive, germinate, and produce a new adult (quality of deposition).
 Thus the SDE landscape can be any 2D plot of Qty x Qlty, with isoclines representing equal values of overall SDE. Or we may plot no. visits x no. fruits/visit, with isoclines representing the overall Qty component. Isoclines just plot the values of the product of two variables. The code is the following:</p>
 
-<p>Below is the code for the `effectiveness` function. You can source the code directly with:</p>
+<p>You can install the last version of the R package directly with:</p>
 
 <pre><code class="r">
-#
-# Sourcing the effectiveness function code from GitHub.
-require(downloader)
-link = "https://raw.githubusercontent.com/pedroj/effectiveness/master/effectiveness.R"
-file = "effectiveness.R"
-if(!file.exists(file)) download(link, file, mode = "wb")
-source(file)
+# Installation.
+devtools::install_github("pedroj/effectiveness_pckg")
+library(effect.lndscp)
 </code></pre>
 
-<p>This is the function code.</p>
+<p>This is the skeleton for the function code. Please see the example datasets included in the package.</p>
+<pre><code class="r">
+# Example datasets.
+data(prunus)
+data(cecropia)
+</code></pre>
 
 <pre><code class="r">
 #----------------------------------------------------------------------
@@ -310,7 +311,7 @@ effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10,
 <h2>Example</h2>
 
 <p>To do the SDE or PE plot, let's use an example:
-We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i>. We were interested in plotting the locations of the different specis of frugivores visiting the tree for fruit food and dispersing its seeds, and visualize them on the PE landscape. </p>
+We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i>. We were interested in plotting the locations of the different species of frugivores visiting the tree for fruit food and dispersing its seeds, and visualize them on the PE landscape. </p>
 
 <p>The function overlays the isolines automatically. You can set the number of desired isolines. </p>
 
