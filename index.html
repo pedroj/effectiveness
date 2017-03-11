@@ -322,7 +322,7 @@ We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i
 devtools::install_github("pedroj/effectiveness_pckg")
 library(effect.lndscp)
 
-#------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 # Based on a dataset of Prunus mahaleb frugivores.
 # In this example we build the effectiveness landscape just for the 
 # quantitative component, plotting its two subcomponents, visitation 
@@ -333,7 +333,7 @@ effectiveness(prunus$visits, prunus$eff_per_vis,
    prunus$group, prunus$animal, 10, 
    myxlab= "No. visits/10h", 
    myylab="Effectiveness/vis (No. fruits handled)")
-#------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 # Based on a dataset of Cecropia glaziovii frugivores.
 # This effectiveness_plot function has repel labels activated.
 data(cecropia)
