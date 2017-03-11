@@ -311,36 +311,47 @@ effectiveness<- function(q1, q2, group=NA, label= NA, nlines=10,
 <h2>Example</h2>
 
 <p>To do the SDE or PE plot, let's use an example:
-We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i>. We were interested in plotting the locations of the different species of frugivores visiting the tree for fruit food and dispersing its seeds, and visualize them on the PE landscape. </p>
+We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i> and . We were interested in plotting the locations of the different species of frugivores visiting the tree for fruit food and dispersing its seeds, and visualize them on the PE landscape. </p>
 
 <p>The function overlays the isolines automatically. You can set the number of desired isolines. </p>
 
 <p>Here is an example run. You can get the whole RMarkdown file in <a href="https://github.com/pedroj/effectiveness">my GitHub repository for the effectiveness landscapes code in R</a>. The whole run of the example is <a href="http://htmlpreview.github.io/?https://raw.github.com/Pakillo/R-figures/blob/master/Networks/effectiveness.html">here</a>.</p>
 
 <pre><code class="r">
-#
-# PJ example. Based on a dataset of Prunus mahaleb frugivores.
-# Get the data from my GitHub repository.
-link = "https://raw.githubusercontent.com/pedroj/effectiveness/master/data.txt"
-file = "data.txt"
-if(!file.exists(file)) download(link, file, mode = "wb")
-M <- read.table(file, sep = "\t", dec = ".", 
-                header = TRUE, na.strings="NA")
+# Installation.
+devtools::install_github("pedroj/effectiveness_pckg")
+library(effect.lndscp)
 
-# Run the function.
-effectiveness(M$visits, M$eff_per_vis, M$group, M$animal, 10, 
-                myxlab= "No. visits/10h", 
-                myylab="Effectiveness/vis (No. fruits handled)")
+#------------------------------------------------------------------------
+# Based on a dataset of Prunus mahaleb frugivores.
+# In this example we build the effectiveness landscape just for the 
+# quantitative component, plotting its two subcomponents, visitation 
+# rate and per-visit effectiveness.
+#
+data(prunus)
+effectiveness(prunus$visits, prunus$eff_per_vis, 
+   prunus$group, prunus$animal, 10, 
+   myxlab= "No. visits/10h", 
+   myylab="Effectiveness/vis (No. fruits handled)")
+#------------------------------------------------------------------------
+# Based on a dataset of Cecropia glaziovii frugivores.
+# This effectiveness_plot function has repel labels activated.
+data(cecropia)
+effectiveness_plot(cecropia$totvis, cecropia$totbic, 
+    cecropia$fam, cecropia$code, 10, 
+    myxlab= "No. visits/10h", 
+    myylab="Effectiveness/vis (No. fruits handled)")
+
 </code></pre>
 
-<p>The resulting plot is:</p>
-<img src="images/effectiveness_prunus.png">
+<p>The function returns a ggplot2 plot object that can be later customized with additional ggplot2 options, as well as the actual plot. </p>
 
 <h2>Suggested references:</h2>
 
 <ul>
-<li>Schupp, E. (1993). Quantity, quality and the effectiveness of seed dispersal by animals. Vegetatio, 108, 15–29.</li>
-<li>Schupp, E.W., Jordano, P. &amp; Gomez, J.M. (2010). Seed dispersal effectiveness revisited: a conceptual review. New Phytol, 188, 333–353.</li>
+<li>Schupp, E.W., Jordano, P. &amp; Gomez, J.M. (2017). Quantity, quality and the effectiveness of seed dispersal by animals. Ecology Letters, 00, 000–000. In press.</li>
+<li>Schupp, E.W. (1993). Quantity, quality and the effectiveness of seed dispersal by animals. Vegetatio, 108, 15–29.</li>
+<li>Schupp, E.W., Jordano, P. &amp; Gomez, J.M. (2010). Seed dispersal effectiveness revisited: a conceptual review. New Phytologist, 188, 333–353.</li>
 <li>Jordano, P. &amp; Schupp, E. (2000). Seed disperser effectiveness: The quantity component and patterns of seed rain for Prunus mahaleb. Ecological Monographs, 70, 591–615.</li>
 </ul>
 
