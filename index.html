@@ -185,7 +185,7 @@
 <!-- HEADER -->
    <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/pedroj/effectiveness">View on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/pedroj/effectiveness_pckg">View on GitHub</a>
 
           <h1 id="project_title">Effectiveness</h1>
           <h2 id="project_tagline">An R package for plots of effectiveness landscapes in mutualisms (seed dispersal, pollination)</h2>
@@ -322,7 +322,7 @@ We use the actual values obtained for the seed dispersal of <i>Prunus mahaleb</i
 devtools::install_github("pedroj/effectiveness_pckg")
 library(effect.lndscp)
 
-#-----------------------------------------------------------------------
+#--------------------------------------------------------------------
 # Based on a dataset of Prunus mahaleb frugivores.
 # In this example we build the effectiveness landscape just for the 
 # quantitative component, plotting its two subcomponents, visitation 
@@ -333,7 +333,7 @@ effectiveness(prunus$visits, prunus$eff_per_vis,
    prunus$group, prunus$animal, 10, 
    myxlab= "No. visits/10h", 
    myylab="Effectiveness/vis (No. fruits handled)")
-#-----------------------------------------------------------------------
+#--------------------------------------------------------------------
 # Based on a dataset of Cecropia glaziovii frugivores.
 # This effectiveness_plot function has repel labels activated.
 data(cecropia)
